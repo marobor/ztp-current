@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.category_show'|trans }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        {% if category is defined and category|length %}
+            <div class="article-container">
+                <dl>
+                    <dd>{{ 'label.category_name'|trans }}</dd>
+                    <dt>{{ category.name }}</dt>
+                    <dd>{{ 'label.category_slug'|trans }}</dd>
+                    <dt>{{ category.slug }}</dt>
+                </dl>
+                </div>
+            </div>
+            <p>
+                <a id="" href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                    {{ 'action.back_to_list'|trans }}
+                </a>
+            </p>
+        {% else %}
+            <p>
+                Record not found.
+            </p>
+        {% endif %}
+    </main>
+{% endblock  %}

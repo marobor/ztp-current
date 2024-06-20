@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.category_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <main class="article-list">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ url('category_create') }}" title="{{ 'action.create'|trans }}">
+            {{ 'action.create'|trans }}
+        </a>
+        {% endif %}
+        {% if pagination is defined and pagination.items|length %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'category.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.name'|trans, 'category.name') }}</th>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <th>{{ 'label.actions'|trans }}</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in pagination.items %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td><a href="{{ url('article_index', {'filters.category_id' : category.id}) }}" title="{{ category.name }}">
+                                {{ category.name }}
+                            </a>
+                        </td>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <td>
+                            <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% else %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        {% endif %}
+    </main>
+{% endblock  %}

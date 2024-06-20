@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        {% if article is defined and article|length %}
+            <div class="article-container">
+{#            {% if article.image is defined and article.image|length%}#}
+{#            <img src="{{ asset(images_directory~article.image) }}" alt="{{article.image}}" width="500" height="auto">#}
+{#            {% endif %}#}
+            <div class="line"></div>
+            <div class="article">
+                <h3>{{ article.title }}</h3>
+                <dl>
+                    <dt>{{ 'label.category'|trans }}</dt>
+                    <dd>
+                        <a href="{{ url('article_index', {'filters.category_id' : article.category.id}) }}" title="{{ article.category.name }}">
+                            {{ article.category.name }}
+                        </a>
+                    </dd>
+                    <dt>{{ 'label.content'|trans }}</dt>
+                    <dd>{{ article.content }}</dd>
+                </dl>
+                <div>
+                    <h4>{{ 'label.comments'|trans}}</h4>
+                    {% if comments is defined and comments|length%}
+                    {% for comment in comments %}
+                        <p>{{ comment.nick }}</p>
+                        <p>{{ comment.email }}</p>
+                        <p>{{ comment.commentContent}}</p>
+                    {% endfor %}
+                    {% else %}
+                        <p>{{ 'message.no_comments'|trans }}</p>
+                    {% endif %}
+                    <h4>{{ 'label.add_comment'|trans}}</h4>
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="form-group row float-sm-right">
+                        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary"/>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            </div>
+            <p>
+                <a id="" href="{{ url('article_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                    {{ 'action.back_to_list'|trans }}
+                </a>
+            </p>
+        {% else %}
+            <p>
+                {% include 'default/_single_alert_message.html.twig' with {
+                    type: 'warning',
+                    message: 'message.empty_list'|trans
+                } %}
+            </p>
+        {% endif %}
+    </main>
+{% endblock  %}

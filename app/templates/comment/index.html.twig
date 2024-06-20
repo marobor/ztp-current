@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.comment_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <main class="article-list">
+        {% if pagination is defined and pagination.items|length %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'comment.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.comments'|trans, 'comment.comments') }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in pagination.items %}
+                    <tr>
+                        <td>{{ comment.id }}</td>
+                        <td>{{ comment.commentContent }}</td>
+                        <td>
+{#                            <a href="{{ url('category_show', {id: category.id}) }}" title="{{ 'action.view'|trans }}">#}
+{#                                {{ 'action.view'|trans }}#}
+{#                            </a>#}
+{#                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}">#}
+{#                                {{ 'action.edit'|trans }}#}
+{#                            </a>#}
+                            <a href="{{ url('comment_delete', {id: comment.id}) }}" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% else %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        {% endif %}
+    </main>
+{% endblock  %}

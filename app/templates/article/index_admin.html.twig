@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.article_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <main class="article-list">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ url('article_create') }}" title="{{ 'action.create'|trans }}">
+                {{ 'action.create'|trans }}
+            </a>
+        {% endif %}
+        {% if pagination is defined and pagination.items|length %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'article.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'article.createdAt') }}</th>
+{#                    <th>{{ knp_pagination_sortable(pagination, 'label.image'|trans, 'article.image') }}</th>#}
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'article.title') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'article.category.name') }}</th>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <th>{{ 'label.actions'|trans }}</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for article in pagination.items %}
+                    <tr>
+                        <td>{{ article.id }}</td>
+                        <td>{{ article.createdAt|format_date('long') }}</td>
+{#                        <td>{{ article.image }}</td>#}
+                        <td>{{ article.title }}</td>
+                        <td><a href="{{ url('article_index', {'filters.category_id' : article.category.id}) }}" title="{{ article.category.name }}">
+                                {{ article.category.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url('article_show', {id: article.id}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a href="{{ url('article_edit', {id: article.id}) }}" title="{{ 'action.edit'|trans }}">
+                                    {{ 'action.edit'|trans }}
+                                </a>
+                                <a href="{{ url('article_delete', {id: article.id}) }}" title="{{ 'action.delete'|trans }}">
+                                    {{ 'action.delete'|trans }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% else %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        {% endif %}
+    </main>
+{% endblock  %}
