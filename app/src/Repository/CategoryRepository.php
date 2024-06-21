@@ -68,7 +68,7 @@ class CategoryRepository extends ServiceEntityRepository
      *
      * @param int $id Category ID
      *
-     * @return Category|null
+     * @return Category|null Category entity
      */
     public function findOneById(int $id): ?Category
     {

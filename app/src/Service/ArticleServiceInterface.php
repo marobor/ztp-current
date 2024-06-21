@@ -36,10 +36,10 @@ interface ArticleServiceInterface
      */
     public function delete(Article $article): void;
 
-    /**
-     * Update entity.
-     *
-     * @param Article $article Article entity
-     */
-    public function update(Article $article): void;
+    //    /**
+    //     * Update entity.
+    //     *
+    //     * @param Article $article Article entity
+    //     */
+    //    public function update(Article $article): void;
 }

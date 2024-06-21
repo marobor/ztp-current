@@ -211,6 +211,38 @@
         <source>title.article_create</source>
         <target>Utwórz artykuł</target>
       </trans-unit>
+      <trans-unit id="title.login">
+        <source>title.login</source>
+        <target>Wypełnij formularz aby się zalogować</target>
+      </trans-unit>
+      <trans-unit id="label.login">
+        <source>label.login</source>
+        <target>Zaloguj się</target>
+      </trans-unit>
+      <trans-unit id="label.logout">
+        <source>label.logout</source>
+        <target>Wyloguj się</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Hasło</target>
+      </trans-unit>
+      <trans-unit id="title.category_show">
+        <source>title.category_show</source>
+        <target>Kategoria</target>
+      </trans-unit>
+      <trans-unit id="label.category_slug">
+        <source>label.category_slug</source>
+        <target>Slug dla kategorii</target>
+      </trans-unit>
+      <trans-unit id="message.form_error">
+        <source>message.form_error</source>
+        <target>Wystąpił błąd formularza</target>
+      </trans-unit>
+      <trans-unit id="title.comment_delete">
+        <source>title.comment_delete</source>
+        <target>Usuń komentarz</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

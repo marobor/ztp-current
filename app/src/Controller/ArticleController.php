@@ -85,7 +85,7 @@ class ArticleController extends AbstractController
             $comment->setArticle($article);
             $commentService->save($comment);
 
-            $this->addFlash('success', 'comment_added');
+            $this->addFlash('success', 'message.comment_added');
 
             return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
         }
@@ -199,9 +199,9 @@ class ArticleController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
-            $form->submit($request->request->get($form->getName()));
-        }
+        //        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+        //            $form->submit($request->request->get($form->getName()));
+        //        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->articleService->delete($article);

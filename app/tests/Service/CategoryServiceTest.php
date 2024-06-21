@@ -9,9 +9,8 @@ use App\Entity\Category;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
-use App\Service\CategoryServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -29,7 +28,7 @@ class CategoryServiceTest extends WebTestCase
     /**
      * Category service.
      */
-    private ?CategoryServiceInterface $categoryService;
+    private CategoryService $categoryService;
 
     /**
      * Category repository.
@@ -64,7 +63,7 @@ class CategoryServiceTest extends WebTestCase
         $this->paginator->expects($this->once())
             ->method('paginate')
             ->with(
-                $this->articleRepository->queryAll(),
+                $this->categoryRepository->queryAll(),
                 $page,
                 $this->categoryService::PAGINATOR_ITEMS_PER_PAGE
             )
@@ -145,6 +144,44 @@ class CategoryServiceTest extends WebTestCase
 
         // then
         $this->assertFalse($this->categoryService->canBeDeleted($category));
+    }
+
+    /**
+     * Test canBeDeleted method when NoResultException is thrown.
+     */
+    public function testCanBeDeletedNoResultException(): void
+    {
+        // given
+        $category = new Category();
+
+        // Mock articleRepository to throw NoResultException
+        $this->articleRepository->method('countByCategory')
+            ->will($this->throwException(new NoResultException()));
+
+        // when
+        $result = $this->categoryService->canBeDeleted($category);
+
+        // then
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Test canBeDeleted method when NonUniqueResultException is thrown.
+     */
+    public function testCanBeDeletedNonUniqueResultException(): void
+    {
+        // given
+        $category = new Category();
+
+        // Mock articleRepository to throw NoResultException
+        $this->articleRepository->method('countByCategory')
+            ->will($this->throwException(new NonUniqueResultException()));
+
+        // when
+        $result = $this->categoryService->canBeDeleted($category);
+
+        // then
+        $this->assertFalse($result);
     }
 
     /**

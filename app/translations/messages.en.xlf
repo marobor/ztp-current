@@ -195,6 +195,46 @@
         <source>title.article_create</source>
         <target>Create article</target>
       </trans-unit>
+      <trans-unit id="title.comment_list">
+        <source>title.comment_list</source>
+        <target>All comments</target>
+      </trans-unit>
+      <trans-unit id="title.category_show">
+        <source>title.category_show</source>
+        <target>Show category</target>
+      </trans-unit>
+      <trans-unit id="label.category_slug">
+        <source>label.category_slug</source>
+        <target>Category slug</target>
+      </trans-unit>
+      <trans-unit id="message.form_error">
+        <source>message.form_error</source>
+        <target>Error occurred</target>
+      </trans-unit>
+      <trans-unit id="title.comment_delete">
+        <source>title.comment_delete</source>
+        <target>Delete comment</target>
+      </trans-unit>
+      <trans-unit id="title.article_list">
+        <source>title.article_list</source>
+        <target>All articles</target>
+      </trans-unit>
+      <trans-unit id="title.login">
+        <source>title.login</source>
+        <target>Please fill the form to login</target>
+      </trans-unit>
+      <trans-unit id="label.login">
+        <source>label.login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="label.logout">
+        <source>label.logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Password</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

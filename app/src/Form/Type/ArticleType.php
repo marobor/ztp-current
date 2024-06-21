@@ -9,11 +9,9 @@ use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * Class ArticleType.
@@ -34,7 +32,7 @@ class ArticleType extends AbstractType
             'title',
             TextType::class,
             [
-                'label' => 'label.name',
+                'label' => 'label.title',
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]

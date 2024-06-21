@@ -5,22 +5,22 @@
 {% endblock %}
 
 {% block body %}
-    <main class="article-list">
+    <main class="container mt-5">
         {% if pagination is defined and pagination.items|length %}
             {% for row in pagination.items|batch(3) %}
-                <div class="row-index">
+                <div class="row mb-4">
                     {% for article in row %}
-                        <div class="col-index">
-                            <div class="card-index">
-{#                                <div class="image-container">#}
-{#                                    <img class="image-index" src="{{ asset(images_directory~article.image) }}" alt="plchldr.co">#}
-{#                                </div>#}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                {# <img class="card-img-top" src="{{ asset(images_directory~article.image) }}" alt="plchldr.co"> #}
                                 <div class="card-body">
                                     <h5 class="card-title">{{ article.title }}</h5>
-                                    <a href="{{ url('article_index', {'filters.category_id' : article.category.id}) }}" class="card-category" title="{{ article.category.name }}">
-                                        {{ article.category.name }}
-                                    </a>
-                                    <a href="{{ url('article_show', {'id': article.id}) }}" class="button">{{ 'button_read'|trans }}</a>
+                                    <p class="card-text">
+                                        <a href="{{ url('article_index', {'filters.category_id' : article.category.id}) }}" class="badge bg-secondary text-decoration-none" title="{{ article.category.name }}">
+                                            {{ article.category.name }}
+                                        </a>
+                                    </p>
+                                    <a href="{{ url('article_show', {'id': article.id}) }}" class="btn btn-primary">{{ 'button_read'|trans }}</a>
                                 </div>
                             </div>
                         </div>
@@ -28,15 +28,13 @@
                 </div>
             {% endfor %}
 
-            <div class="navigation text-center">
+            <div class="d-flex justify-content-center">
                 {{ knp_pagination_render(pagination) }}
             </div>
-
         {% else %}
-            {% include 'default/_single_alert_message.html.twig' with {
-                type: 'warning',
-                message: 'message.empty_list'|trans
-            } %}
+            <div class="alert alert-warning" role="alert">
+                {{ 'message.empty_list'|trans }}
+            </div>
         {% endif %}
     </main>
-{% endblock  %}
+{% endblock %}

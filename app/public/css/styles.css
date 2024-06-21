@@ -35,6 +35,10 @@ label {
     margin-left: 5vw;
 }
 
+.pagination span {
+    margin-inline: 3px;
+}
+
 /*first page*/
 
 body.helloBody {
@@ -79,7 +83,7 @@ a:hover {
     color: magenta;
 }
 
-/* regular page - header */
+ /*regular page - header */
 
 header.main-header {
     align-self: flex-start;
@@ -127,7 +131,6 @@ li a {
 }
 
 .btn-primary{
-    background-color: #B0413E;
     max-width: 10vw;
     margin-left: 5vw;
 }

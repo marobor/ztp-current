@@ -69,20 +69,19 @@ class ArticleService implements ArticleServiceInterface
         if (null === $article->getId()) {
             $article->setCreatedAt(new \DateTimeImmutable());
         }
-        //        $article->setUpdatedAt(new \DateTimeImmutable());
 
         $this->articleRepository->save($article);
     }
 
-    /**
-     * Update entity.
-     *
-     * @param Article $article Article entity
-     */
-    public function update(Article $article): void
-    {
-        $this->save($article);
-    }
+    //    /**
+    //     * Update entity.
+    //     *
+    //     * @param Article $article Article entity
+    //     */
+    //    public function update(Article $article): void
+    //    {
+    //        $this->save($article);
+    //    }
 
     /**
      * Delete entity.

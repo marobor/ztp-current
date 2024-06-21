@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\Type\CommentType;
 use App\Service\CommentServiceInterface;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class CommentController.
  */
-#[\Symfony\Component\Routing\Attribute\Route(
+#[Route(
     '/comment'
 )]
 class CommentController extends AbstractController
@@ -39,8 +40,7 @@ class CommentController extends AbstractController
      *
      * @return Response Http response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(
-        '/',
+    #[Route(
         name: 'comment_index',
         methods: 'GET'
     )]
@@ -64,7 +64,7 @@ class CommentController extends AbstractController
      *
      * @return Response Http response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(
+    #[Route(
         '/{id}/delete',
         name: 'comment_delete',
         requirements: ['id' => '[1-9]\d*'],
@@ -91,7 +91,7 @@ class CommentController extends AbstractController
         }
 
         return $this->render(
-            'article/delete.html.twig',
+            'comment/delete.html.twig',
             [
                 'form' => $form->createView(),
                 'comment' => $comment,

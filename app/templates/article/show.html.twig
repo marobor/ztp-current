@@ -5,58 +5,53 @@
 {% endblock %}
 
 {% block body %}
-    <main>
+    <a href="{{ url('article_index') }}" class="btn btn-secondary" style="max-width: 150px; margin: 20px;" title="{{ 'action.back_to_list'|trans }}">
+        {{ 'action.back_to_list'|trans }}
+    </a>
+    <main class="container mt-5">
         {% if article is defined and article|length %}
-            <div class="article-container">
-{#            {% if article.image is defined and article.image|length%}#}
-{#            <img src="{{ asset(images_directory~article.image) }}" alt="{{article.image}}" width="500" height="auto">#}
-{#            {% endif %}#}
-            <div class="line"></div>
-            <div class="article">
-                <h3>{{ article.title }}</h3>
-                <dl>
-                    <dt>{{ 'label.category'|trans }}</dt>
-                    <dd>
-                        <a href="{{ url('article_index', {'filters.category_id' : article.category.id}) }}" title="{{ article.category.name }}">
-                            {{ article.category.name }}
-                        </a>
-                    </dd>
-                    <dt>{{ 'label.content'|trans }}</dt>
-                    <dd>{{ article.content }}</dd>
-                </dl>
-                <div>
-                    <h4>{{ 'label.comments'|trans}}</h4>
-                    {% if comments is defined and comments|length%}
-                    {% for comment in comments %}
-                        <p>{{ comment.nick }}</p>
-                        <p>{{ comment.email }}</p>
-                        <p>{{ comment.commentContent}}</p>
-                    {% endfor %}
-                    {% else %}
-                        <p>{{ 'message.no_comments'|trans }}</p>
-                    {% endif %}
-                    <h4>{{ 'label.add_comment'|trans}}</h4>
-                    {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <div class="form-group row float-sm-right">
-                        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary"/>
+
+            <h1 class="card-title">{{ article.title }}</h1>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <dl class="row">
+                        <span style="display: inline-block">{{ 'label.category'|trans }}</span>
+                        <span style="display: inline-block">
+                            <a href="{{ url('article_index', {'filters.category_id' : article.category.id}) }}" title="{{ article.category.name }}">
+                                {{ article.category.name }}
+                            </a>
+                        </span>
+                        <dd class="mt-5">{{ article.content }}</dd>
+                    </dl>
+                    <div>
+                        <h4>{{ 'label.comments'|trans }}</h4>
+                        {% if comments is defined and comments|length %}
+                            {% for comment in comments %}
+                                <div class="mb-3">
+                                    <p><strong>{{ comment.nick }}</strong></p>
+                                    <p>{{ comment.email }}</p>
+                                    <p>{{ comment.commentContent }}</p>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>{{ 'message.no_comments'|trans }}</p>
+                        {% endif %}
+                        <h4>{{ 'label.add_comment'|trans }}</h4>
+                        {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_widget(form) }}
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary"/>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
-                    {{ form_end(form) }}
                 </div>
             </div>
-            </div>
-            <p>
-                <a id="" href="{{ url('article_index') }}" title="{{ 'action.back_to_list'|trans }}">
-                    {{ 'action.back_to_list'|trans }}
-                </a>
-            </p>
         {% else %}
-            <p>
-                {% include 'default/_single_alert_message.html.twig' with {
-                    type: 'warning',
-                    message: 'message.empty_list'|trans
-                } %}
-            </p>
+            <div class="alert alert-warning" role="alert">
+                {{ 'message.empty_list'|trans }}
+            </div>
         {% endif %}
     </main>
-{% endblock  %}
+{% endblock %}
