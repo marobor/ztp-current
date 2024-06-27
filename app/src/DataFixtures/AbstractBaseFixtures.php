@@ -26,6 +26,13 @@ abstract class AbstractBaseFixtures extends Fixture
     protected ObjectManager $manager;
 
     /**
+     * Object reference index.
+     *
+     * @var array<string, array<int, array-key>>
+     */
+    private array $referencesIndex = [];
+
+    /**
      * Load.
      *
      * @param ObjectManager $manager Persistence object manager
@@ -92,7 +99,7 @@ abstract class AbstractBaseFixtures extends Fixture
         if (!isset($this->referencesIndex[$groupName])) {
             $this->referencesIndex[$groupName] = [];
 
-            foreach ($this->referenceRepository->getReferences() as $key => $reference) {
+            foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
                 if (str_starts_with((string) $key, $groupName.'_')) {
                     $this->referencesIndex[$groupName][] = $key;
                 }

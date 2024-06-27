@@ -50,7 +50,7 @@ class CategoryControllerTest extends WebTestCase
     /**
      * Set up.
      */
-    protected function SetUp(): void
+    public function setUp(): void
     {
         $this->httpClient = static::createClient();
         $container = static::getContainer();
